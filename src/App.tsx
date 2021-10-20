@@ -26,11 +26,11 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <RequestViewIndex
+      {/* <RequestViewIndex
         style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
         request={requestMock}
         onDeleteRequest={() => {}}
-      />
+      /> */}
       <RequestCEIndex
         style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
       />
