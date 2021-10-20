@@ -10,8 +10,10 @@ function KVDisplay(props: KVDProps) {
       {props.data.map((item, index) => {
         return (
           <div key={item.kei + item.value + index + new Date().getMilliseconds}>
-            <Badge style={{ marginRight: "10px" }}>{item.kei}</Badge>
-            <Badge style={{ background: "none" }} intent={props.intent}>
+            <Badge intent={props.intent} style={{ marginRight: "10px" }}>
+              {item.kei}
+            </Badge>
+            <Badge style={{ background: "none" }} intent="grey">
               {item.value}
             </Badge>
           </div>
