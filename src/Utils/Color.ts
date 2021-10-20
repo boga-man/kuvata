@@ -1,38 +1,39 @@
 import { HTTPMethod } from "../Interfaces/Request";
 
 function GetColorForHTTPMethod(method: HTTPMethod): string {
-  let ch = 0;
+  let s = 0;
+  let m = 0;
   switch (method) {
     case "GET":
-      ch = 30;
+      s = 50;
       break;
     case "POST":
-      ch = 60;
+      s = 100;
       break;
     case "PUT":
-      ch = 90;
+      s = 150;
       break;
     case "PATCH":
-      ch = 120;
+      s = 200;
       break;
     case "DELETE":
-      ch = 150;
+      s = 250;
       break;
     case "CONNECT":
-      ch = 180;
+      m = 50;
       break;
     case "TRACE":
-      ch = 210;
+      m = 100;
       break;
     case "HEAD":
-      ch = 240;
+      m = 150;
       break;
     case "OPTIONS":
-      ch = 255;
+      m = 200;
       break;
   }
 
-  return `rgb(252,${ch},84)`;
+  return `rgba(${s},${m},255,1)`;
 }
 
 export { GetColorForHTTPMethod };
