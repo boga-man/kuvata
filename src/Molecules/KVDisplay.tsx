@@ -3,13 +3,19 @@ import { IKeyValue } from "../Interfaces/Global";
 interface KVDProps {
   data: IKeyValue<any, any>[];
   intent?: "info" | "danger" | "success" | "warning" | "grey";
+  onItemClick?: (index: number) => void;
 }
 function KVDisplay(props: KVDProps) {
   return (
     <div>
       {props.data.map((item, index) => {
         return (
-          <div key={item.kei + item.value + index + new Date().getMilliseconds}>
+          <div
+            key={item.kei + item.value + index + new Date().getMilliseconds}
+            onClick={() => {
+              props.onItemClick && props.onItemClick(index);
+            }}
+          >
             <Badge intent={props.intent} style={{ marginRight: "10px" }}>
               {item.kei}
             </Badge>
