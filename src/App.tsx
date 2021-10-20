@@ -4,12 +4,12 @@ import RequestViewIndex from "./Molecules/RequestView/Index";
 
 const requestMock: IRequest = {
   intro: {
-    method: "GET",
+    method: "DELETE",
     endpoint: "/auth/login",
     description:
       "HTTP defines a set of request methods to indicate the desired action to be performed for a given resource. Although they can also be nouns, these request methods are sometimes referred to as HTTP verbs. Each of them implements a different semantic",
   },
-  body: "this is the body",
+  body: "The body must contain the following: \n\t Hello",
   params: [{ kei: "type", value: "admin" }],
   headers: [
     { kei: "Content-Type", value: "application/json" },

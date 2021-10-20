@@ -1,4 +1,3 @@
-import React from "react";
 import Badge from "../../Components/Badge";
 import { THeaders, TParams } from "../../Interfaces/Request";
 interface PHProps {

@@ -5,7 +5,7 @@ import { GetColorForHTTPMethod } from "../../Utils/Color";
 interface RIVProps {
   requestIntroData: IRequestIntro;
 }
-function RequestIntroView(props: RIVProps) {
+function RequestIntro(props: RIVProps) {
   const intent = useMemo(
     () => GetColorForHTTPMethod(props.requestIntroData.method),
     [props.requestIntroData.method]
@@ -14,7 +14,7 @@ function RequestIntroView(props: RIVProps) {
     <div style={{ width: "100%" }}>
       <span
         style={{
-          fontWeight: 500,
+          fontWeight: 700,
           borderBottom: "2px dashed " + intent,
           padding: "3px 10px",
         }}
@@ -25,7 +25,7 @@ function RequestIntroView(props: RIVProps) {
         style={{
           color: SimaraDarkTheme.Colors.text.dil30,
           marginLeft: "10px",
-          fontWeight: 700,
+          fontWeight: 200,
         }}
       >
         {props.requestIntroData.endpoint}
@@ -43,4 +43,4 @@ function RequestIntroView(props: RIVProps) {
   );
 }
 
-export default RequestIntroView;
+export default RequestIntro;

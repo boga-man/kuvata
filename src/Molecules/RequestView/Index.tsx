@@ -4,7 +4,7 @@ import { SimaraDarkTheme } from "../../Global/ThemeData";
 import { IRequest } from "../../Interfaces/Request";
 import Body from "./Body";
 import ParamsHeaders from "./ParamsHeaders";
-import RequestIntroView from "./RequestIntroView";
+import RequestIntro from "./RequestIntro";
 import ResponseError from "./ResponseError";
 const SRVContainer = styled.div`
   border-radius: 5px;
@@ -20,7 +20,7 @@ interface RVIProps {
 function RequestViewIndex(props: RVIProps) {
   return (
     <SRVContainer style={props.style}>
-      <RequestIntroView requestIntroData={props.request.intro} />
+      <RequestIntro requestIntroData={props.request.intro} />
       <ParamsHeaders
         params={props.request.params}
         headers={props.request.headers}
