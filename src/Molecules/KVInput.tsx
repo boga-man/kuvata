@@ -37,7 +37,12 @@ function KVInput() {
   return (
     <div style={{ marginTop: "10px" }}>
       <p>Params</p>
-      <KVDisplay data={kvStore} />
+      <KVDisplay
+        data={kvStore}
+        onItemClick={(index) => {
+          setKvStore((ps) => removeKeyValue(index, ps));
+        }}
+      />
       <div style={{ display: "flex", width: "100%", margin: "10px 0" }}>
         <TextField
           value={editKV.kei}

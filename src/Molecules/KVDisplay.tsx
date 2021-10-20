@@ -4,6 +4,7 @@ interface KVDProps {
   data: IKeyValue<any, any>[];
   intent?: "info" | "danger" | "success" | "warning" | "grey";
   onItemClick?: (index: number) => void;
+  cursor?: string;
 }
 function KVDisplay(props: KVDProps) {
   return (
@@ -11,6 +12,7 @@ function KVDisplay(props: KVDProps) {
       {props.data.map((item, index) => {
         return (
           <div
+            style={{ cursor: props.cursor }}
             key={item.kei + item.value + index + new Date().getMilliseconds}
             onClick={() => {
               props.onItemClick && props.onItemClick(index);
