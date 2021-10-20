@@ -13,8 +13,11 @@ const requestMock: IRequest = {
     { kei: "Content-Type", value: "application/json" },
     { kei: "Geography", value: "as-east-1" },
   ],
-  response: [],
-  error: [],
+  response: [
+    { kei: 200, value: "user already present and logged in" },
+    { kei: 201, value: "new user created and logged in" },
+  ],
+  error: [{ kei: 404, value: "id token missing" }],
 };
 function App() {
   return (
