@@ -66,7 +66,7 @@ function Badge(props: BadgeProps) {
     <SBadge theme={badgeTheme} style={props.style}>
       <p
         style={{
-          filter: "brightness(70%)",
+          filter: "brightness(200%)",
         }}
       >
         {props.children}

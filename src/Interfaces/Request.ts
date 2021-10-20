@@ -11,8 +11,8 @@ interface IRequest {
   params: TParams;
   headers: THeaders;
   body: TBody;
-  response: TResponse;
-  error: TError;
+  responses: TResponse;
+  errors: TError;
 }
 
 // types

@@ -2,7 +2,7 @@ import { ISimaraThemeData } from "./Interface";
 
 export const SimaraDarkTheme: ISimaraThemeData = {
   Colors: {
-    background: "#0d1116",
+    background: "#1a202c",
     primary: {
       dil0: "rgba(44,99,255)",
       dil30: "rgba(44,99,255,0.9)",
