@@ -33,7 +33,7 @@ function GetColorForHTTPMethod(method: HTTPMethod): string {
       break;
   }
 
-  return `rgba(${s},${m},255,1)`;
+  return `rgba(${s},${m},150,1)`;
 }
 
 export { GetColorForHTTPMethod };
