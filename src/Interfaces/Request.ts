@@ -29,8 +29,8 @@ type HTTPMethod =
 type TParams = IKeyValue<string, string>[];
 type THeaders = IKeyValue<string, string>[];
 type TBody = string;
-type TResponse = IKeyValue<number, string>[];
-type TError = IKeyValue<number, string>[];
+type TResponse = IKeyValue<string, string>[];
+type TError = IKeyValue<string, string>[];
 export type {
   IRequestIntro,
   HTTPMethod,

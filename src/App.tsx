@@ -17,22 +17,20 @@ const requestMock: IRequest = {
     { kei: "Geography", value: "as-east-1" },
   ],
   responses: [
-    { kei: 200, value: "user already present and logged in" },
-    { kei: 201, value: "new user created and logged in" },
+    { kei: "200", value: "user already present and logged in" },
+    { kei: "201", value: "new user created and logged in" },
   ],
-  errors: [{ kei: 404, value: "id token missing" }],
+  errors: [{ kei: "404", value: "id token missing" }],
 };
 function App() {
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       <GlobalStyle />
-      {/* <RequestViewIndex
-        style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
+      <RequestCEIndex style={{ width: "45%", margin: "10px auto" }} />
+      <RequestViewIndex
+        style={{ width: "45%", margin: "10px auto", height: "fit-content" }}
         request={requestMock}
         onDeleteRequest={() => {}}
-      /> */}
-      <RequestCEIndex
-        style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
       />
     </div>
   );

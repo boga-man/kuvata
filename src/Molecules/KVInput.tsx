@@ -32,6 +32,7 @@ interface KVInputProps {
   title?: string;
   data?: IKeyValue<string, string>[];
   onChange?: (data: IKeyValue<string, string>[]) => void;
+  intent?: "info" | "danger" | "success" | "warning" | "grey";
 }
 function KVInput(props: KVInputProps) {
   const [editKV, setEditKV] = useState<IKeyValue<string, string>>({
@@ -46,6 +47,7 @@ function KVInput(props: KVInputProps) {
       <p>{props.title}</p>
       <KVDisplay
         pointer
+        intent={props.intent}
         data={kvStore}
         onItemClick={(index) => {
           setKvStore((ps) => removeKeyValue(index, ps));
