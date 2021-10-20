@@ -4,13 +4,15 @@ import { IKeyValue } from "./Global";
 interface IRequestIntro {
   method: HTTPMethod;
   endpoint: string;
-  description: string;
+  description?: string;
 }
 interface IRequest {
   intro: IRequestIntro;
   params: TParams;
   headers: THeaders;
   body: TBody;
+  responses: TResponse;
+  errors: TError;
 }
 
 // types
