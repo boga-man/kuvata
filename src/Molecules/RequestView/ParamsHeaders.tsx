@@ -1,4 +1,3 @@
-import Badge from "../../Components/Badge";
 import { THeaders, TParams } from "../../Interfaces/Request";
 import KVDisplay from "../KVDisplay";
 interface PHProps {
