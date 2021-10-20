@@ -24,15 +24,13 @@ const requestMock: IRequest = {
 };
 function App() {
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       <GlobalStyle />
-      {/* <RequestViewIndex
-        style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
+      <RequestCEIndex style={{ width: "45%", margin: "10px auto" }} />
+      <RequestViewIndex
+        style={{ width: "45%", margin: "10px auto", height: "fit-content" }}
         request={requestMock}
         onDeleteRequest={() => {}}
-      /> */}
-      <RequestCEIndex
-        style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
       />
     </div>
   );
