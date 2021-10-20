@@ -1,5 +1,6 @@
 import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
+import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
 
 const requestMock: IRequest = {
@@ -25,10 +26,13 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <RequestViewIndex
+      {/* <RequestViewIndex
         style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
         request={requestMock}
         onDeleteRequest={() => {}}
+      /> */}
+      <RequestCEIndex
+        style={{ width: "90%", maxWidth: "550px", margin: "10px auto" }}
       />
     </div>
   );
