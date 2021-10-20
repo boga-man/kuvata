@@ -31,6 +31,7 @@ function removeKeyValue(
 interface KVInputProps {
   title?: string;
   data?: IKeyValue<string, string>[];
+  onChange?: (data: IKeyValue<string, string>[]) => void;
 }
 function KVInput(props: KVInputProps) {
   const [editKV, setEditKV] = useState<IKeyValue<string, string>>({
@@ -50,7 +51,7 @@ function KVInput(props: KVInputProps) {
           setKvStore((ps) => removeKeyValue(index, ps));
         }}
       />
-      <div style={{ display: "flex", width: "100%", margin: "10px 0" }}>
+      <div style={{ display: "flex", width: "100%", margin: "5px 0" }}>
         <TextField
           value={editKV.kei}
           onChange={(e) => {
@@ -77,7 +78,11 @@ function KVInput(props: KVInputProps) {
           isIconButton
           onClick={() => {
             if (editKV.kei !== "" && editKV.value !== "") {
-              setKvStore((ps) => addKeyValue(editKV, ps));
+              setKvStore((ps) => {
+                const temp = addKeyValue(editKV, ps);
+                props.onChange && props.onChange(temp);
+                return temp;
+              });
               setEditKV({ kei: "", value: "" });
             } else {
               alert("Invalid Key Value");

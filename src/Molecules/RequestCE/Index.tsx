@@ -17,7 +17,7 @@ function RequestCEIndex(props: RCEIProps) {
   return (
     <RCEContainer style={props.style}>
       <RequestIntroInput />
-      <KVInput />
+      <KVInput title="Params" />
     </RCEContainer>
   );
 }
