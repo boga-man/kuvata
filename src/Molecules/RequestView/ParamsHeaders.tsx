@@ -13,7 +13,9 @@ function ParamsHeaders(props: PHProps) {
         return (
           <div key={item.kei + item.value + index + new Date().getMilliseconds}>
             <Badge style={{ marginRight: "10px" }}>{item.kei}</Badge>
-            <Badge intent="grey">{item.value}</Badge>
+            <Badge style={{ background: "none" }} intent="grey">
+              {item.value}
+            </Badge>
           </div>
         );
       })}
@@ -24,7 +26,9 @@ function ParamsHeaders(props: PHProps) {
             <Badge intent="warning" style={{ marginRight: "10px" }}>
               {item.kei}
             </Badge>
-            <Badge intent="grey">{item.value}</Badge>
+            <Badge style={{ background: "none" }} intent="grey">
+              {item.value}
+            </Badge>
           </div>
         );
       })}

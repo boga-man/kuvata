@@ -15,9 +15,8 @@ function RequestIntroView(props: RIVProps) {
       <span
         style={{
           fontWeight: 500,
-          background: intent,
+          borderBottom: "2px dashed " + intent,
           padding: "3px 10px",
-          borderRadius: "2px",
         }}
       >
         {props.requestIntroData.method}

@@ -4,7 +4,7 @@ import RequestViewIndex from "./Molecules/RequestView/Index";
 
 const requestMock: IRequest = {
   intro: {
-    method: "DELETE",
+    method: "GET",
     endpoint: "/auth/login",
     description:
       "HTTP defines a set of request methods to indicate the desired action to be performed for a given resource. Although they can also be nouns, these request methods are sometimes referred to as HTTP verbs. Each of them implements a different semantic",

@@ -15,7 +15,9 @@ function ResponseError(props: REProps) {
             <Badge intent="success" style={{ marginRight: "10px" }}>
               {item.kei}
             </Badge>
-            <Badge intent="grey">{item.value}</Badge>
+            <Badge style={{ background: "none" }} intent="grey">
+              {item.value}
+            </Badge>
           </div>
         );
       })}
@@ -26,7 +28,9 @@ function ResponseError(props: REProps) {
             <Badge intent="danger" style={{ marginRight: "10px" }}>
               {item.kei}
             </Badge>
-            <Badge intent="grey">{item.value}</Badge>
+            <Badge style={{ background: "none" }} intent="grey">
+              {item.value}
+            </Badge>
           </div>
         );
       })}
