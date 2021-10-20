@@ -24,8 +24,18 @@ type HTTPMethod =
   | "CONNECT"
   | "OPTIONS"
   | "TRACE";
-type TParams = IKeyValue[];
-type THeaders = IKeyValue[];
+type TParams = IKeyValue<string, string>[];
+type THeaders = IKeyValue<string, string>[];
 type TBody = string;
-
-export type { IRequestIntro, HTTPMethod, TParams, THeaders, TBody, IRequest };
+type TResponse = IKeyValue<number, string>[];
+type TError = IKeyValue<number, string>[];
+export type {
+  IRequestIntro,
+  HTTPMethod,
+  TParams,
+  THeaders,
+  TBody,
+  IRequest,
+  TResponse,
+  TError,
+};
