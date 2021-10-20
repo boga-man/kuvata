@@ -28,16 +28,23 @@ function removeKeyValue(
 
   return temp;
 }
-function KVInput() {
+interface KVInputProps {
+  title?: string;
+  data?: IKeyValue<string, string>[];
+}
+function KVInput(props: KVInputProps) {
   const [editKV, setEditKV] = useState<IKeyValue<string, string>>({
     kei: "",
     value: "",
   });
-  const [kvStore, setKvStore] = useState<IKeyValue<string, string>[]>([]);
+  const [kvStore, setKvStore] = useState<IKeyValue<string, string>[]>(
+    props.data || []
+  );
   return (
     <div style={{ marginTop: "10px" }}>
-      <p>Params</p>
+      <p>{props.title}</p>
       <KVDisplay
+        pointer
         data={kvStore}
         onItemClick={(index) => {
           setKvStore((ps) => removeKeyValue(index, ps));
