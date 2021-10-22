@@ -80,11 +80,11 @@ function KVInput(props: KVInputProps) {
           isIconButton
           onClick={() => {
             if (editKV.kei !== "" && editKV.value !== "") {
+              const temp = addKeyValue(editKV, kvStore);
               setKvStore((ps) => {
-                const temp = addKeyValue(editKV, ps);
-                props.onChange && props.onChange(temp);
                 return temp;
               });
+              props.onChange && props.onChange(temp);
               setEditKV({ kei: "", value: "" });
             } else {
               alert("Invalid Key Value");

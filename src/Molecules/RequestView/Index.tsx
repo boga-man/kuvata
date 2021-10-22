@@ -37,7 +37,7 @@ function RequestViewIndex(props: RVIProps) {
     >
       {props.request.map((item, index) => {
         return (
-          <SRVContainer>
+          <SRVContainer key={item.intro.method + item.intro.endpoint + index}>
             <div
               style={{
                 padding: "0 10px",
