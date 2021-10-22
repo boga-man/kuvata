@@ -2,6 +2,7 @@ import { CSSProperties } from "react";
 import styled from "styled-components";
 import Button from "../../Components/Button";
 import { IconPencil, IconTrash } from "../../Components/Icons";
+import { useSimaraToast } from "../../Global/Context";
 import { SimaraDarkTheme } from "../../Global/ThemeData";
 import { IRequest } from "../../Interfaces/Request";
 import Body from "./Body";
@@ -23,6 +24,7 @@ interface RVIProps {
   onEditRequest: () => void;
 }
 function RequestViewIndex(props: RVIProps) {
+  const toast = useSimaraToast();
   return (
     <div
       style={{
@@ -51,6 +53,20 @@ function RequestViewIndex(props: RVIProps) {
                 iconAfter={IconTrash}
                 isIconButton
                 style={{ marginLeft: "10px" }}
+                onClick={() => {
+                  const val = window.confirm(
+                    "The following request will be deleted. Do you want to delete it?"
+                  );
+                  if (val) {
+                    // clear the redux repo here
+                    toast({
+                      message: "Request Deleted",
+                      intent: "danger",
+                    });
+                  } else {
+                    toast({ message: "Request not deleted. " });
+                  }
+                }}
               />
             </div>
             <RequestIntro requestIntroData={item.intro} />
