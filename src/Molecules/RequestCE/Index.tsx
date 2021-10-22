@@ -1,6 +1,7 @@
 import { CSSProperties, useState } from "react";
 import styled from "styled-components";
 import Button from "../../Components/Button";
+import { IconChevronRight } from "../../Components/Icons";
 import TextArea from "../../Components/TextArea";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest } from "../../Interfaces/Request";
@@ -9,7 +10,7 @@ import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
   border-radius: 5px;
   padding: 10px;
-  height: 85vh;
+  height: 90vh;
   overflow: auto;
 `;
 interface RCEIProps {
@@ -79,7 +80,12 @@ function RequestCEIndex(props: RCEIProps) {
           setErrors(data);
         }}
       />
-      <Button style={{ width: "100%", marginTop: "20px" }} intent="success">
+      <Button
+        iconAfter={IconChevronRight}
+        style={{ width: "100%", marginTop: "20px" }}
+        intent="success"
+        cSize="large"
+      >
         Save
       </Button>
     </RCEContainer>

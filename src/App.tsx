@@ -28,12 +28,12 @@ function App() {
     <>
       <GlobalStyle />
       <TopBar />
-      <div style={{ display: "flex" }}>
-        <RequestCEIndex style={{ width: "45%", margin: "10px auto" }} />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <RequestCEIndex style={{ width: "50%" }} />
         <RequestViewIndex
-          style={{ width: "45%", margin: "10px auto", height: "fit-content" }}
-          request={requestMock}
+          request={[requestMock, requestMock, requestMock]}
           onDeleteRequest={() => {}}
+          onEditRequest={() => {}}
         />
       </div>
     </>
