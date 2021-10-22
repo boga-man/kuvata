@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../Components/Button";
 import Modal from "../Components/Modal";
 import Switch from "../Components/Switch";
+import { useSimaraToast } from "../Global/Context";
 import { SimaraDarkTheme } from "../Global/ThemeData";
 import ImportExport from "./ImportExport";
 const STopBar = styled.div`
@@ -17,6 +18,7 @@ const STopBar = styled.div`
 `;
 function TopBar() {
   const [modal, showModal] = useState(false);
+  const toast = useSimaraToast();
   return (
     <STopBar>
       <div
@@ -42,7 +44,20 @@ function TopBar() {
         >
           Import / Export
         </Button>
-        <Button appearance="secondary" intent="danger">
+        <Button
+          appearance="secondary"
+          intent="danger"
+          onClick={() => {
+            const val = window.confirm(
+              "All save data will be erased from current tab as well as local storage. Do you want to erase all stored data?"
+            );
+            if (val) {
+              // clear the redux repo here
+            } else {
+              toast({ message: "Data not deleted. " });
+            }
+          }}
+        >
           Reset
         </Button>
       </div>

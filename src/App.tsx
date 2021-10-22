@@ -1,3 +1,4 @@
+import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
@@ -25,7 +26,7 @@ const requestMock: IRequest = {
 };
 function App() {
   return (
-    <>
+    <ToastManager>
       <GlobalStyle />
       <TopBar />
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -36,7 +37,7 @@ function App() {
           onEditRequest={() => {}}
         />
       </div>
-    </>
+    </ToastManager>
   );
 }
 
