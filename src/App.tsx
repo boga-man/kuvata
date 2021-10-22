@@ -1,7 +1,9 @@
+import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
+import TopBar from "./Molecules/Topbar";
 
 const requestMock: IRequest = {
   intro: {
@@ -24,15 +26,18 @@ const requestMock: IRequest = {
 };
 function App() {
   return (
-    <div style={{ display: "flex" }}>
+    <ToastManager>
       <GlobalStyle />
-      <RequestCEIndex style={{ width: "45%", margin: "10px auto" }} />
-      <RequestViewIndex
-        style={{ width: "45%", margin: "10px auto", height: "fit-content" }}
-        request={requestMock}
-        onDeleteRequest={() => {}}
-      />
-    </div>
+      <TopBar />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <RequestCEIndex />
+        <RequestViewIndex
+          request={[requestMock, requestMock, requestMock]}
+          onDeleteRequest={() => {}}
+          onEditRequest={() => {}}
+        />
+      </div>
+    </ToastManager>
   );
 }
 

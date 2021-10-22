@@ -104,7 +104,7 @@ function Toast(props: ToastProps) {
       <div style={{ flex: "1 1 auto" }}>
         <b
           style={{
-            filter: "brightness(70%)",
+            filter: "brightness(150%)",
             padding: "0",
             margin: "0",
             color: toastTheme.intentColor,
