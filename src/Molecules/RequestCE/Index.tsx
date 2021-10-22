@@ -9,7 +9,8 @@ import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
   border-radius: 5px;
   padding: 10px;
-  margin: 10px;
+  height: 85vh;
+  overflow: auto;
 `;
 interface RCEIProps {
   request?: IRequest;
