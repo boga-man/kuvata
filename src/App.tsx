@@ -29,7 +29,7 @@ function App() {
       <GlobalStyle />
       <TopBar />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <RequestCEIndex style={{ width: "50%" }} />
+        <RequestCEIndex />
         <RequestViewIndex
           request={[requestMock, requestMock, requestMock]}
           onDeleteRequest={() => {}}

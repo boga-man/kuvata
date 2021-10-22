@@ -12,6 +12,7 @@ const RCEContainer = styled.div`
   padding: 10px;
   height: 90vh;
   overflow: auto;
+  width: 50%;
 `;
 interface RCEIProps {
   request?: IRequest;
