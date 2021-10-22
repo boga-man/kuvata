@@ -1,11 +1,13 @@
 import { CSSProperties, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Components/Button";
 import { IconChevronRight } from "../../Components/Icons";
 import TextArea from "../../Components/TextArea";
 import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
-import { IRequest } from "../../Interfaces/Request";
+import { IRequest, IRequestIntro } from "../../Interfaces/Request";
+import { initFormState } from "../../Utils/FormInit";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
@@ -16,27 +18,65 @@ const RCEContainer = styled.div`
   width: 50%;
 `;
 interface RCEIProps {
-  request?: IRequest;
+  request: IRequest;
   style?: CSSProperties;
 }
+
 function RequestCEIndex(props: RCEIProps) {
+  const initIntro: IRequestIntro = {
+    method: "GET",
+    endpoint: props.request.intro.endpoint || '',
+    description: props.request.intro.description || '',
+  };
+
+  console.log('Props in Index: ', props.request);
+
+  const [intro, setIntro] = useState(initIntro);
   const [body, setBody] = useState("");
-  const toast = useSimaraToast();
   const [params, setParams] = useState<IKeyValue<string, string>[]>(
-    props.request?.params || []
+    props.request.params || []
   );
   const [headers, setHeaders] = useState<IKeyValue<string, string>[]>(
-    props.request?.headers || []
+    props.request.headers || []
   );
   const [responses, setResponses] = useState<IKeyValue<string, string>[]>(
-    props.request?.responses || []
+    props.request.responses || []
   );
   const [errors, setErrors] = useState<IKeyValue<string, string>[]>(
-    props.request?.errors || []
+    props.request.errors || []
   );
+
+  const dispatchRequest = {
+    intro,
+    body,
+    params,
+    headers,
+    responses,
+    errors,
+  };
+
+  console.log('States after useState in Index:', dispatchRequest);
+
+  const onSave = (request: IRequest) => {
+    setIntro(request.intro);
+    setBody(request.body);
+    setParams(request.params);
+    setHeaders(request.headers);
+    setResponses(request.responses);
+    setErrors(request.errors);
+  }
+
+  const toast = useSimaraToast();
+  const dispatch = useDispatch();
+
   return (
     <RCEContainer style={props.style}>
-      <RequestIntroInput />
+      <RequestIntroInput
+        data={intro}
+        stateHandler={(intro: IRequestIntro) => {
+          setIntro(intro);
+        }}
+      />
       <KVInput
         data={params}
         title="Params"
@@ -89,6 +129,8 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         cSize="large"
         onClick={() => {
+          dispatch({ type: "ADD_REQUEST", payload: dispatchRequest });
+          onSave(initFormState);
           toast({
             title: "Request Added",
             message:

@@ -20,9 +20,10 @@ const SRVContainer = styled.div`
 interface RVIProps {
   request: IRequest[];
   style?: CSSProperties;
-  onDeleteRequest: () => void;
-  onEditRequest: () => void;
+  onDeleteRequest: (index: number) => void;
+  onEditRequest: (request: IRequest) => void;
 }
+
 function RequestViewIndex(props: RVIProps) {
   const toast = useSimaraToast();
   return (
@@ -47,7 +48,13 @@ function RequestViewIndex(props: RVIProps) {
                 right: "10px",
               }}
             >
-              <Button isIconButton iconAfter={IconPencil} />
+              <Button
+                isIconButton
+                iconAfter={IconPencil}
+                onClick={() => {
+                  props.onEditRequest(item);
+                }}
+              />
               <Button
                 intent="danger"
                 iconAfter={IconTrash}
@@ -58,7 +65,7 @@ function RequestViewIndex(props: RVIProps) {
                     "The following request will be deleted. Do you want to delete it?"
                   );
                   if (val) {
-                    // clear the redux repo here
+                    props.onDeleteRequest(index);
                     toast({
                       message: "Request Deleted",
                       intent: "danger",

@@ -50,7 +50,9 @@ function KVInput(props: KVInputProps) {
         intent={props.intent}
         data={kvStore}
         onItemClick={(index) => {
-          setKvStore((ps) => removeKeyValue(index, ps));
+          const temp = removeKeyValue(index, kvStore);
+          setKvStore(temp);
+          props.onChange && props.onChange(temp);
         }}
       />
       <div style={{ display: "flex", width: "100%", margin: "5px 0" }}>
