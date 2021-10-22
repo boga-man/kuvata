@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../../Components/Button";
 import { IconChevronRight } from "../../Components/Icons";
 import TextArea from "../../Components/TextArea";
+import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest } from "../../Interfaces/Request";
 import KVInput from "../KVInput";
@@ -20,6 +21,7 @@ interface RCEIProps {
 }
 function RequestCEIndex(props: RCEIProps) {
   const [body, setBody] = useState("");
+  const toast = useSimaraToast();
   const [params, setParams] = useState<IKeyValue<string, string>[]>(
     props.request?.params || []
   );
@@ -86,6 +88,14 @@ function RequestCEIndex(props: RCEIProps) {
         style={{ width: "100%", marginTop: "20px" }}
         intent="success"
         cSize="large"
+        onClick={() => {
+          toast({
+            title: "Request Added",
+            message:
+              "Your request has been added, you can check in right column.",
+            intent: "success",
+          });
+        }}
       >
         Save
       </Button>
