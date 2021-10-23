@@ -36,6 +36,11 @@ function RequestViewIndex(props: RVIProps) {
         overflow: "auto",
       }}
     >
+      {props.request.length === 0 && (
+        <SRVContainer style={{ display: "flex", justifyContent: "center" }}>
+          No request saved.
+        </SRVContainer>
+      )}
       {props.request.map((item, index) => {
         return (
           <SRVContainer key={item.intro.method + item.intro.endpoint + index}>
