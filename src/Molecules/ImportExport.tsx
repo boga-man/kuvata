@@ -52,7 +52,7 @@ function ImportExport(props: IImportExport) {
                 });
                 toast({
                   title: `Imported Kuvata JSON`,
-                  message: `JSON is imported`,
+                  message: `JSON is imported.`,
                   intent: "success",
                 });
                 props.onCloseRequest();
@@ -74,8 +74,8 @@ function ImportExport(props: IImportExport) {
             onClick={() => {
               navigator.clipboard.writeText(json);
               toast({
-                title: `Copied!`,
-                message: `JSON copied to the clipboard`,
+                title: `Copied`,
+                message: `Kuvata JSON copied to the clipboard.`,
                 intent: "success",
               });
               props.onCloseRequest();
@@ -87,7 +87,7 @@ function ImportExport(props: IImportExport) {
       </div>
       <TextArea
         style={{ height: "90%", width: "100%", resize: "none" }}
-        placeholder="Add at least one endpoint to export into JSON"
+        placeholder="Add at least one request to export into JSON"
         value={json}
         onChange={(e) => {
           setJson(e.target.value);
