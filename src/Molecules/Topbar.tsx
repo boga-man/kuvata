@@ -66,13 +66,20 @@ function TopBar() {
           appearance="secondary"
           intent="danger"
           onClick={() => {
-            const val = window.confirm(
-              "All save data will be erased from current tab as well as local storage. Do you want to erase all stored data?"
-            );
-            if (val) {
+            if (
+              window.confirm(
+                "All save data will be erased from current session as well as local storage. Do you want to erase all stored data?"
+              )
+            ) {
               dispatch({
                 type: "CLEAR_REQUEST_STORE",
                 payload: { saveLocally: store.saveLocally },
+              });
+              toast({
+                title: "Data Erased",
+                message:
+                  "All the data saved in current session and local storage has been erased.",
+                intent: "danger",
               });
             } else {
               toast({ message: "Data not deleted. " });
