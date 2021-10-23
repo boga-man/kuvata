@@ -6,57 +6,9 @@ const storedState = localStorage.getItem(config.localStorageKey);
 const initialState: IRequest[] =
   storedState !== null ? JSON.parse(storedState) : [];
 
-// const initialState: IRequest[] = [{
-//   intro: {
-//     method: "GET",
-//     endpoint: "dummy/get/route",
-//     description: "(optional)Describe your endpoint here",
-//   },
-//   params: [{
-//     kei: "key",
-//     value: "value",
-//   }],
-//   headers: [{
-//     kei: "header",
-//     value: "value",
-//   }],
-//   body: "Enter the contents expected in the body",
-//   responses: [{
-//     kei: "status code",
-//     value: "message",
-//   }],
-//   errors: [{
-//     kei: "status code",
-//     value: "possible cause",
-//   }],
-// },{
-//   intro: {
-//     method: "GET",
-//     endpoint: "dummy/get/route/2",
-//     description: "Describe your endpoint here",
-//   },
-//   params: [{
-//     kei: "key",
-//     value: "value",
-//   }],
-//   headers: [{
-//     kei: "header",
-//     value: "value",
-//   }],
-//   body: "Enter the contents expected in the body",
-//   responses: [{
-//     kei: "status code",
-//     value: "message",
-//   }],
-//   errors: [{
-//     kei: "status code",
-//     value: "possible cause",
-//   }],
-// }];
-
 export type RequestAction = {
-  type: "ADD_REQUEST" | "DELETE_REQUEST";
-  payload: { data: IRequest | number; saveLocally: boolean };
+  type: "ADD_REQUEST" | "DELETE_REQUEST" | "CLEAR_REQEUST_STORE";
+  payload: { data?: IRequest | number; saveLocally: boolean };
 };
 
 const addRequestTo = (state: IRequest[], payload: IRequest) => {
@@ -105,6 +57,10 @@ export const requestReducer = (
         );
       }
       return removedState;
+    case "CLEAR_REQEUST_STORE":
+      const newState: IRequest[] = [];
+      localStorage.setItem(config.localStorageKey, JSON.stringify(newState));
+      return newState;
     default:
       return state;
   }

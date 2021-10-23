@@ -20,7 +20,7 @@ const STopBar = styled.div`
 `;
 function TopBar() {
   const [modal, showModal] = useState(false);
-  const store = useSelector((state: IStore) => state);
+  const store: IStore = useSelector((state: IStore) => state);
 
   const dispatch = useDispatch();
   const toast = useSimaraToast();
@@ -70,7 +70,10 @@ function TopBar() {
               "All save data will be erased from current tab as well as local storage. Do you want to erase all stored data?"
             );
             if (val) {
-              // clear the redux repo here
+              dispatch({
+                type: "CLEAR_REQEUST_STORE",
+                payload: { saveLocally: store.saveLocally },
+              });
             } else {
               toast({ message: "Data not deleted. " });
             }
