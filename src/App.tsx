@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
@@ -29,7 +29,7 @@ function App() {
           <RequestCEIndex
             request={formRequest}
             onSave={() => {
-              setFormRequest((ps) => {
+              setFormRequest(() => {
                 return { ...InitFormState };
               });
             }}
