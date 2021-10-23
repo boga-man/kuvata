@@ -132,7 +132,7 @@ function RequestCEIndex(props: RCEIProps) {
           props.onSave();
           toast({
             title: `Endpoint added`,
-            message: `The endpoint '${dispatchRequest.intro.endpoint}' has been added, you can check in right column`,
+            message: `The endpoint '${dispatchRequest.intro.endpoint}' has been saved. You can view it in right pane.`,
             intent: "success",
           });
         }}

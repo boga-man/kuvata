@@ -52,6 +52,12 @@ function RequestViewIndex(props: RVIProps) {
                 isIconButton
                 iconAfter={IconPencil}
                 onClick={() => {
+                  toast({
+                    title: "Moved To Editing",
+                    message:
+                      "The request has been moved to left pane for editing. ",
+                    intent: "warning",
+                  });
                   props.onDeleteRequest(index);
                   props.onEditRequest(item);
                 }}
@@ -68,8 +74,8 @@ function RequestViewIndex(props: RVIProps) {
                   if (val) {
                     props.onDeleteRequest(index);
                     toast({
-                      title: `Request deleted`,
-                      message: `The endpoint '${item.intro.endpoint}' has been deleted`,
+                      title: `Request Deleted`,
+                      message: `The endpoint '${item.intro.endpoint}' has been deleted.`,
                       intent: "danger",
                     });
                   } else {
