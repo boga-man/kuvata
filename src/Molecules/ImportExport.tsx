@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Components/Button";
+import { IconClipboard } from "../Components/Icons";
 import TextArea from "../Components/TextArea";
 import { useSimaraToast } from "../Global/Context";
 import { IStore } from "../Store/store";
@@ -35,7 +36,7 @@ function ImportExport(props: IImportExport) {
           justifyContent: "space-between",
         }}
       >
-        <p style={{ fontSize: "small" }}>JSON</p>
+        <p style={{ fontSize: "small" }}>Kuvata JSON</p>
         <div>
           <Button
             appearance="secondary"
@@ -71,6 +72,7 @@ function ImportExport(props: IImportExport) {
             appearance="secondary"
             style={{ marginLeft: "10px" }}
             cSize="small"
+            iconAfter={IconClipboard}
             onClick={() => {
               navigator.clipboard.writeText(json);
               toast({
