@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
@@ -15,6 +15,10 @@ function App() {
   );
   const [formRequest, setFormRequest] = useState(initFormState);
 
+  useEffect(()=>{
+    console.log("form request changed: App", formRequest);
+  },[formRequest]);
+
   const dispatch = useDispatch();
   return (
     <ToastManager>
@@ -23,9 +27,9 @@ function App() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <RequestCEIndex
           request={formRequest}
-          onSave={() => {
+          onSave={(request: IRequest) => {
             console.log("in save callback");
-            setFormRequest(initFormState);
+            setFormRequest(request);
           }}
         />
         <RequestViewIndex

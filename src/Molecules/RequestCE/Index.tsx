@@ -7,6 +7,7 @@ import TextArea from "../../Components/TextArea";
 import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest, IRequestIntro } from "../../Interfaces/Request";
+import { initFormState } from "../../Utils/FormInit";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
@@ -19,7 +20,7 @@ const RCEContainer = styled.div`
 interface RCEIProps {
   request: IRequest;
   style?: CSSProperties;
-  onSave: () => void;
+  onSave: (request: IRequest) => void;
 }
 
 function RequestCEIndex(props: RCEIProps) {
@@ -37,7 +38,7 @@ function RequestCEIndex(props: RCEIProps) {
   const [errors, setErrors] = useState<IKeyValue<string, string>[]>([]);
 
   useEffect(() => {
-    console.log("In use effect", props.request);
+    console.log("In use effect: index", props.request);
     setIntro(props.request.intro);
     setBody(props.request.body);
     setParams(props.request.params);
@@ -61,6 +62,7 @@ function RequestCEIndex(props: RCEIProps) {
         data={intro}
         stateHandler={(intro: IRequestIntro) => {
           setIntro(intro);
+          props.onSave({...dispatchRequest, intro});
         }}
       />
       <KVInput
@@ -68,6 +70,7 @@ function RequestCEIndex(props: RCEIProps) {
         title="Params"
         onChange={(data) => {
           setParams(data);
+          props.onSave({...dispatchRequest, params})
         }}
       />
       <KVInput
@@ -76,6 +79,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="warning"
         onChange={(data) => {
           setHeaders(data);
+          props.onSave({...dispatchRequest, headers});
         }}
       />
       <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
@@ -89,6 +93,7 @@ function RequestCEIndex(props: RCEIProps) {
         }}
         onChange={(e) => {
           setBody((ps) => e.target.value);
+          props.onSave({...dispatchRequest, body})
         }}
         placeholder="Describe body"
         style={{ resize: "vertical", width: "100%" }}
@@ -99,6 +104,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         onChange={(data) => {
           setResponses(data);
+          props.onSave({...dispatchRequest, responses});
         }}
       />
       <KVInput
@@ -107,6 +113,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="danger"
         onChange={(data) => {
           setErrors(data);
+          props.onSave({...dispatchRequest, errors});
         }}
       />
       <Button
@@ -116,7 +123,7 @@ function RequestCEIndex(props: RCEIProps) {
         cSize="large"
         onClick={() => {
           dispatch({ type: "ADD_REQUEST", payload: dispatchRequest });
-          props.onSave();
+          props.onSave(initFormState);
           toast({
             title: "Request Added",
             message:
