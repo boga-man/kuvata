@@ -52,6 +52,7 @@ function RequestViewIndex(props: RVIProps) {
                 isIconButton
                 iconAfter={IconPencil}
                 onClick={() => {
+                  props.onDeleteRequest(index);
                   props.onEditRequest(item);
                 }}
               />

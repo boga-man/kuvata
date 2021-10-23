@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
 import Select from "../../Components/Select";
 import TextArea from "../../Components/TextArea";
 import TextField from "../../Components/TextField";
@@ -8,12 +8,19 @@ interface RIIProps {
   stateHandler: (intro: IRequestIntro) => void;
 }
 function RequestIntroInput(props: RIIProps) {
-  const data = props.data;
-  const [method, setMethod] = useState<HTTPMethod>(data.method);
-  const [endpoint, setEndpoint] = useState(data.endpoint);
-  const [description, setDescription] = useState(data.description);
+  const [method, setMethod] = useState<HTTPMethod>("GET");
+  const [endpoint, setEndpoint] = useState("");
+  const [description, setDescription] = useState<string | undefined>("");
 
-  const handleMethodChange: FormEventHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  useEffect(() => {
+    setMethod(props.data.method);
+    setEndpoint(props.data.endpoint);
+    setDescription(props.data.description);
+  }, [props.data.description, props.data.endpoint, props.data.method]);
+
+  const handleMethodChange: FormEventHandler = (
+    e: ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedMethod: HTTPMethod = e.target.value as HTTPMethod;
     setMethod(selectedMethod);
     props.stateHandler({ method: selectedMethod, endpoint, description });
@@ -24,24 +31,24 @@ function RequestIntroInput(props: RIIProps) {
     props.stateHandler({ method, endpoint: e.target.value, description });
   };
 
-  const handleDescChange= (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDescChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
-    props.stateHandler({method, endpoint, description: e.target.value});
+    props.stateHandler({ method, endpoint, description: e.target.value });
   };
 
   return (
     <>
-      <div style={{ display: "flex" }} >
-        <Select onChange={handleMethodChange} >
-          <option value="">GET</option>
-          <option value="">POST</option>
-          <option value="">DELETE</option>
-          <option value="">PUT</option>
-          <option value="">PATCH</option>
-          <option value="">HEAD</option>
-          <option value="">CONNECT</option>
-          <option value="">OPTIONS</option>
-          <option value="">TRACE</option>
+      <div style={{ display: "flex" }}>
+        <Select value={method} onChange={handleMethodChange}>
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="DELETE">DELETE</option>
+          <option value="PUT">PUT</option>
+          <option value="PATCH">PATCH</option>
+          <option value="HEAD">HEAD</option>
+          <option value="CONNECT">CONNECT</option>
+          <option value="OPTIONS">OPTIONS</option>
+          <option value="TRACE">TRACE</option>
         </Select>
         <TextField
           containerStyle={{ width: "100%", paddingLeft: "10px" }}

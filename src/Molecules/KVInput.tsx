@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Components/Button";
 import { IconPlus } from "../Components/Icons";
 import TextField from "../Components/TextField";
@@ -25,7 +25,6 @@ function removeKeyValue(
       temp.push(from[i]);
     }
   }
-
   return temp;
 }
 interface KVInputProps {
@@ -34,14 +33,17 @@ interface KVInputProps {
   onChange?: (data: IKeyValue<string, string>[]) => void;
   intent?: "info" | "danger" | "success" | "warning" | "grey";
 }
+
+// cmp
 function KVInput(props: KVInputProps) {
   const [editKV, setEditKV] = useState<IKeyValue<string, string>>({
     kei: "",
     value: "",
   });
-  const [kvStore, setKvStore] = useState<IKeyValue<string, string>[]>(
-    props.data || []
-  );
+  const [kvStore, setKvStore] = useState<IKeyValue<string, string>[]>([]);
+  useEffect(() => {
+    if (props.data) setKvStore(props.data);
+  }, [props.data]);
   return (
     <div style={{ marginTop: "10px" }}>
       <p>{props.title}</p>

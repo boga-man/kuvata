@@ -14,9 +14,8 @@ function App() {
     (state: IStore) => state.requestStore
   );
   const [formRequest, setFormRequest] = useState(initFormState);
-  console.log('Via App.tsx:', formRequest);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   return (
     <ToastManager>
       <GlobalStyle />
@@ -24,6 +23,10 @@ function App() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <RequestCEIndex
           request={formRequest}
+          onSave={() => {
+            console.log("in save callback");
+            setFormRequest(initFormState);
+          }}
         />
         <RequestViewIndex
           request={requestStore}
@@ -31,6 +34,7 @@ function App() {
             dispatch({ type: "DELETE_REQUEST", payload: index });
           }}
           onEditRequest={(request: IRequest) => {
+            console.log("Request in callback", request);
             setFormRequest(request);
           }}
         />

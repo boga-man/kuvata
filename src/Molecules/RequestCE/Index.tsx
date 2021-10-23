@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Components/Button";
@@ -7,7 +7,6 @@ import TextArea from "../../Components/TextArea";
 import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest, IRequestIntro } from "../../Interfaces/Request";
-import { initFormState } from "../../Utils/FormInit";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
@@ -20,31 +19,32 @@ const RCEContainer = styled.div`
 interface RCEIProps {
   request: IRequest;
   style?: CSSProperties;
+  onSave: () => void;
 }
 
 function RequestCEIndex(props: RCEIProps) {
-  const initIntro: IRequestIntro = {
+  const toast = useSimaraToast();
+  const dispatch = useDispatch();
+
+  const [intro, setIntro] = useState<IRequestIntro>({
+    endpoint: "",
     method: "GET",
-    endpoint: props.request.intro.endpoint || '',
-    description: props.request.intro.description || '',
-  };
-
-  console.log('Props in Index: ', props.request);
-
-  const [intro, setIntro] = useState(initIntro);
+  });
   const [body, setBody] = useState("");
-  const [params, setParams] = useState<IKeyValue<string, string>[]>(
-    props.request.params || []
-  );
-  const [headers, setHeaders] = useState<IKeyValue<string, string>[]>(
-    props.request.headers || []
-  );
-  const [responses, setResponses] = useState<IKeyValue<string, string>[]>(
-    props.request.responses || []
-  );
-  const [errors, setErrors] = useState<IKeyValue<string, string>[]>(
-    props.request.errors || []
-  );
+  const [params, setParams] = useState<IKeyValue<string, string>[]>([]);
+  const [headers, setHeaders] = useState<IKeyValue<string, string>[]>([]);
+  const [responses, setResponses] = useState<IKeyValue<string, string>[]>([]);
+  const [errors, setErrors] = useState<IKeyValue<string, string>[]>([]);
+
+  useEffect(() => {
+    console.log("In use effect", props.request);
+    setIntro(props.request.intro);
+    setBody(props.request.body);
+    setParams(props.request.params);
+    setHeaders(props.request.headers);
+    setResponses(props.request.responses);
+    setErrors(props.request.errors);
+  }, [props.request]);
 
   const dispatchRequest = {
     intro,
@@ -54,20 +54,6 @@ function RequestCEIndex(props: RCEIProps) {
     responses,
     errors,
   };
-
-  console.log('States after useState in Index:', dispatchRequest);
-
-  const onSave = (request: IRequest) => {
-    setIntro(request.intro);
-    setBody(request.body);
-    setParams(request.params);
-    setHeaders(request.headers);
-    setResponses(request.responses);
-    setErrors(request.errors);
-  }
-
-  const toast = useSimaraToast();
-  const dispatch = useDispatch();
 
   return (
     <RCEContainer style={props.style}>
@@ -130,7 +116,7 @@ function RequestCEIndex(props: RCEIProps) {
         cSize="large"
         onClick={() => {
           dispatch({ type: "ADD_REQUEST", payload: dispatchRequest });
-          onSave(initFormState);
+          props.onSave();
           toast({
             title: "Request Added",
             message:
