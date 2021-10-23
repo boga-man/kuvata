@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
+import Footer from "./Molecules/Footer";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
 import TopBar from "./Molecules/Topbar";
@@ -47,6 +48,7 @@ function App() {
           }}
         />
       </div>
+      <Footer />
     </ToastManager>
   );
 }

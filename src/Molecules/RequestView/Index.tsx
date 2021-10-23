@@ -32,7 +32,7 @@ function RequestViewIndex(props: RVIProps) {
         width: "50%",
         background: "none",
         padding: "0 20px",
-        height: "90vh",
+        height: "86vh",
         overflow: "auto",
       }}
     >

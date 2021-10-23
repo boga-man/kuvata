@@ -11,10 +11,7 @@ import { IStore } from "../../Store/store";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
-  border-radius: 5px;
-  padding: 10px;
-  height: 90vh;
-  overflow: auto;
+  height: 86vh;
   width: 50%;
 `;
 interface RCEIProps {
@@ -58,61 +55,75 @@ function RequestCEIndex(props: RCEIProps) {
 
   return (
     <RCEContainer style={props.style}>
-      <RequestIntroInput
-        data={intro}
-        stateHandler={(intro: IRequestIntro) => {
-          setIntro(intro);
+      <div
+        style={{
+          height: "calc(86vh - 50px)",
+          overflow: "auto",
+          width: "100%",
+          padding: "10px",
+          paddingBottom: "20px",
         }}
-      />
-      <KVInput
-        data={params}
-        title="Params"
-        onChange={(data) => {
-          setParams(data);
-        }}
-      />
-      <KVInput
-        data={headers}
-        title="Headers"
-        intent="warning"
-        onChange={(data) => {
-          setHeaders(data);
-        }}
-      />
-      <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
-      <TextArea
-        value={body}
-        onKeyDown={(e) => {
-          if (e.key === "Tab") {
-            e.preventDefault();
-            setBody((ps) => ps + "\t");
-          }
-        }}
-        onChange={(e) => {
-          setBody((ps) => e.target.value);
-        }}
-        placeholder="Describe body"
-        style={{ resize: "vertical", width: "100%" }}
-      />
-      <KVInput
-        data={responses}
-        title="Responses"
-        intent="success"
-        onChange={(data) => {
-          setResponses(data);
-        }}
-      />
-      <KVInput
-        data={errors}
-        title="Errors"
-        intent="danger"
-        onChange={(data) => {
-          setErrors(data);
-        }}
-      />
+      >
+        <RequestIntroInput
+          data={intro}
+          stateHandler={(intro: IRequestIntro) => {
+            setIntro(intro);
+          }}
+        />
+        <KVInput
+          data={params}
+          title="Params"
+          onChange={(data) => {
+            setParams(data);
+          }}
+        />
+        <KVInput
+          data={headers}
+          title="Headers"
+          intent="warning"
+          onChange={(data) => {
+            setHeaders(data);
+          }}
+        />
+        <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
+        <TextArea
+          value={body}
+          onKeyDown={(e) => {
+            if (e.key === "Tab") {
+              e.preventDefault();
+              setBody((ps) => ps + "\t");
+            }
+          }}
+          onChange={(e) => {
+            setBody((ps) => e.target.value);
+          }}
+          placeholder="Describe body"
+          style={{ resize: "vertical", width: "100%" }}
+        />
+        <KVInput
+          data={responses}
+          title="Responses"
+          intent="success"
+          onChange={(data) => {
+            setResponses(data);
+          }}
+        />
+        <KVInput
+          data={errors}
+          title="Errors"
+          intent="danger"
+          onChange={(data) => {
+            setErrors(data);
+          }}
+        />
+      </div>
       <Button
         iconAfter={IconChevronRight}
-        style={{ width: "100%", marginTop: "20px" }}
+        style={{
+          width: "100%",
+          height: "50px",
+          borderRadius: "0",
+        }}
         intent="success"
         cSize="large"
         onClick={() => {
