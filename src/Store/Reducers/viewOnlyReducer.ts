@@ -12,6 +12,7 @@ export const viewOnlyReducer = (
     case "TOGGLE_VIEW_ONLY":
       const newState = !state;
       return newState;
+      
     default:
       return state;
   }

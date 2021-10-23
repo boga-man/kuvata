@@ -5,7 +5,7 @@ import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
-import TopBar from "./Molecules/TopBar";
+import TopBar from "./Molecules/Topbar";
 import { IStore } from "./Store/store";
 import { InitFormState } from "./Utils/Auxillary";
 
@@ -17,8 +17,6 @@ function App() {
     return { viewOnly: state.viewOnly, saveLocally: state.saveLocally };
   });
   const [formRequest, setFormRequest] = useState(InitFormState);
-
-  useEffect(() => {}, [formRequest]);
 
   const dispatch = useDispatch();
   return (

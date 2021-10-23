@@ -52,6 +52,7 @@ export const requestReducer = (
         );
       }
       return addedState;
+
     case "DELETE_REQUEST":
       const removedState = removeRequestFrom(
         state,
@@ -64,10 +65,12 @@ export const requestReducer = (
         );
       }
       return removedState;
+
     case "CLEAR_REQUEST_STORE":
       const newState: IRequest[] = [];
       localStorage.setItem(config.localStorageKey, JSON.stringify(newState));
       return newState;
+
     case "IMPORT_REQUEST_STORE":
       const importedState = action.payload.data;
       localStorage.setItem(
@@ -75,6 +78,7 @@ export const requestReducer = (
         JSON.stringify(importedState)
       );
       return importedState;
+      
     default:
       return state;
   }
