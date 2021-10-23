@@ -8,7 +8,6 @@ import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest, IRequestIntro } from "../../Interfaces/Request";
 import { IStore } from "../../Store/store";
-import { initFormState } from "../../Utils/FormInit";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
@@ -21,7 +20,7 @@ const RCEContainer = styled.div`
 interface RCEIProps {
   request: IRequest;
   style?: CSSProperties;
-  onSave: (request: IRequest) => void;
+  onSave: () => void;
 }
 
 function RequestCEIndex(props: RCEIProps) {
@@ -63,8 +62,6 @@ function RequestCEIndex(props: RCEIProps) {
         data={intro}
         stateHandler={(intro: IRequestIntro) => {
           setIntro(intro);
-          console.log('stateHandler', dispatchRequest);
-          // props.onSave({ ...dispatchRequest, intro });
         }}
       />
       <KVInput
@@ -72,7 +69,6 @@ function RequestCEIndex(props: RCEIProps) {
         title="Params"
         onChange={(data) => {
           setParams(data);
-          // props.onSave({ ...dispatchRequest, params });
         }}
       />
       <KVInput
@@ -81,7 +77,6 @@ function RequestCEIndex(props: RCEIProps) {
         intent="warning"
         onChange={(data) => {
           setHeaders(data);
-          // props.onSave({ ...dispatchRequest, headers });
         }}
       />
       <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
@@ -95,7 +90,6 @@ function RequestCEIndex(props: RCEIProps) {
         }}
         onChange={(e) => {
           setBody((ps) => e.target.value);
-          // props.onSave({ ...dispatchRequest, body });
         }}
         placeholder="Describe body"
         style={{ resize: "vertical", width: "100%" }}
@@ -106,7 +100,6 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         onChange={(data) => {
           setResponses(data);
-          // props.onSave({ ...dispatchRequest, responses });
         }}
       />
       <KVInput
@@ -115,7 +108,6 @@ function RequestCEIndex(props: RCEIProps) {
         intent="danger"
         onChange={(data) => {
           setErrors(data);
-          // props.onSave({ ...dispatchRequest, errors });
         }}
       />
       <Button
@@ -128,7 +120,7 @@ function RequestCEIndex(props: RCEIProps) {
             type: "ADD_REQUEST",
             payload: { data: dispatchRequest, saveLocally },
           });
-          props.onSave(initFormState);
+          props.onSave();
           toast({
             title: `Endpoint added`,
             message: `The endpoint '${dispatchRequest.intro.endpoint}' has been added, you can check in right column`,

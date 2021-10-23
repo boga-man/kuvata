@@ -4,6 +4,7 @@ import Button from "../Components/Button";
 import TextArea from "../Components/TextArea";
 import { useSimaraToast } from "../Global/Context";
 import { IStore } from "../Store/store";
+import { isValidIRequestJSON } from "../Utils/Auxillary";
 
 interface IImportExport {
   onCloseRequest: () => void;
@@ -41,13 +42,27 @@ function ImportExport(props: IImportExport) {
             style={{ marginLeft: "10px" }}
             cSize="small"
             onClick={() => {
-              dispatch({ type: "IMPORT_REQUEST_STORE", payload: {data:json, saveLocally: store.saveLocally} });
-              toast({
-                title: `Imported!`,
-                message: `Your JSON is imported`,
-                intent: "success",
-              });
-              props.onCloseRequest();
+              if (isValidIRequestJSON(json)) {
+                dispatch({
+                  type: "IMPORT_REQUEST_STORE",
+                  payload: {
+                    data: JSON.parse(json),
+                    saveLocally: store.saveLocally,
+                  },
+                });
+                toast({
+                  title: `Imported Kuvata JSON`,
+                  message: `JSON is imported`,
+                  intent: "success",
+                });
+                props.onCloseRequest();
+              } else {
+                toast({
+                  title: `Invalid JSON`,
+                  message: `JSON could not be imported.`,
+                  intent: "danger",
+                });
+              }
             }}
           >
             Import
@@ -72,9 +87,11 @@ function ImportExport(props: IImportExport) {
       </div>
       <TextArea
         style={{ height: "90%", width: "100%", resize: "none" }}
-        placeholder="Add atleast one endpoint to export into JSON"
+        placeholder="Add at least one endpoint to export into JSON"
         value={json}
-        onChange={(e) => {setJson(e.target.value)}}
+        onChange={(e) => {
+          setJson(e.target.value);
+        }}
       />
     </div>
   );

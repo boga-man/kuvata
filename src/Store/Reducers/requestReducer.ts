@@ -1,18 +1,21 @@
 import { config } from "../../Global/Config";
 import { IRequest } from "../../Interfaces/Request";
+import { isValidIRequestJSON } from "../../Utils/Auxillary";
 
 const storedState = localStorage.getItem(config.localStorageKey);
 
 const initialState: IRequest[] =
-  storedState !== null ? JSON.parse(storedState) : [];
+  storedState && isValidIRequestJSON(storedState)
+    ? JSON.parse(storedState)
+    : [];
 
 export type RequestAction = {
   type:
     | "ADD_REQUEST"
     | "DELETE_REQUEST"
-    | "CLEAR_REQEUST_STORE"
+    | "CLEAR_REQUEST_STORE"
     | "IMPORT_REQUEST_STORE";
-  payload: { data?: IRequest | number | string; saveLocally: boolean };
+  payload: { data?: IRequest | number; saveLocally: boolean };
 };
 
 const addRequestTo = (state: IRequest[], payload: IRequest) => {
@@ -61,19 +64,16 @@ export const requestReducer = (
         );
       }
       return removedState;
-    case "CLEAR_REQEUST_STORE":
+    case "CLEAR_REQUEST_STORE":
       const newState: IRequest[] = [];
       localStorage.setItem(config.localStorageKey, JSON.stringify(newState));
       return newState;
     case "IMPORT_REQUEST_STORE":
-      const importedStateJson: string = action.payload.data as string;
-      const importedState = JSON.parse(importedStateJson); 
-      if (action.payload.saveLocally) {
-        localStorage.setItem(
-          config.localStorageKey,
-          JSON.stringify(importedState)
-        );
-      }
+      const importedState = action.payload.data;
+      localStorage.setItem(
+        config.localStorageKey,
+        JSON.stringify(importedState)
+      );
       return importedState;
     default:
       return state;

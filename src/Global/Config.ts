@@ -1,4 +1,4 @@
 export const config = {
-    localStorageKey: 'requestStore',
-    saveLocally: 'saveLocally'
-}
+  localStorageKey: "requestStore",
+  saveLocally: "saveLocally",
+};

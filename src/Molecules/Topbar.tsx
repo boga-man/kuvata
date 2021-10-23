@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../Components/Button";
@@ -71,7 +71,7 @@ function TopBar() {
             );
             if (val) {
               dispatch({
-                type: "CLEAR_REQEUST_STORE",
+                type: "CLEAR_REQUEST_STORE",
                 payload: { saveLocally: store.saveLocally },
               });
             } else {
@@ -89,9 +89,11 @@ function TopBar() {
             showModal((ps) => !ps);
           }}
         >
-          <ImportExport onCloseRequest={() => {
-            showModal((ps) => !ps);
-          }}/>
+          <ImportExport
+            onCloseRequest={() => {
+              showModal((ps) => !ps);
+            }}
+          />
         </Modal>
       )}
     </STopBar>

@@ -5,9 +5,9 @@ import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
-import TopBar from "./Molecules/Topbar";
+import TopBar from "./Molecules/TopBar";
 import { IStore } from "./Store/store";
-import { initFormState } from "./Utils/FormInit";
+import { InitFormState } from "./Utils/Auxillary";
 
 function App() {
   const requestStore: IRequest[] = useSelector(
@@ -16,10 +16,9 @@ function App() {
   const { viewOnly, saveLocally } = useSelector((state: IStore) => {
     return { viewOnly: state.viewOnly, saveLocally: state.saveLocally };
   });
-  const [formRequest, setFormRequest] = useState(initFormState);
+  const [formRequest, setFormRequest] = useState(InitFormState);
 
-  useEffect(() => {
-  }, [formRequest]);
+  useEffect(() => {}, [formRequest]);
 
   const dispatch = useDispatch();
   return (
@@ -30,8 +29,10 @@ function App() {
         {viewOnly || (
           <RequestCEIndex
             request={formRequest}
-            onSave={(request: IRequest) => {
-              setFormRequest(request);
+            onSave={() => {
+              setFormRequest((ps) => {
+                return { ...InitFormState };
+              });
             }}
           />
         )}
