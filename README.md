@@ -20,7 +20,7 @@ Kuvata makes it extremely easy to make documentation for your RESTful APIs. Noth
 ### Contributing
 
 Contributions are always welcome.
-Please feel free to make a PR or let me know via Email.
+Please feel free to make a PR or an issue.
 
 ### License
 
