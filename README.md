@@ -1,5 +1,5 @@
 <p align="center">
-<img height="100px" src="https://raw.githubusercontent.com/orted-org/kuvata/dev/public/logo.png">
+<img height="100px" src="https://kuvata.netlify.app/logo.png">
 </p>
 <h2 align="center">Kuvata</h2>
 <p align="center">
