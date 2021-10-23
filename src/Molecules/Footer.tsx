@@ -18,7 +18,12 @@ function Footer() {
   return (
     <SFooter>
       Created with ⚡️ by &nbsp;
-      <a style={{ color: "#98ff9d" }} href="https://github.com/orted-org">
+      <a
+        style={{ color: "#98ff9d" }}
+        href="https://github.com/orted-org"
+        target="_blank"
+        rel="noreferrer"
+      >
         ORTED
       </a>
     </SFooter>
