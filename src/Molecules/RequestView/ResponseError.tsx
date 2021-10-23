@@ -7,9 +7,13 @@ interface REProps {
 function ResponseError(props: REProps) {
   return (
     <div style={{ width: "100%" }}>
-      <p style={{ fontSize: "15px", marginTop: "10px" }}>Responses</p>
+      {props.responses.length !== 0 && (
+        <p style={{ fontSize: "15px", marginTop: "10px" }}>Responses</p>
+      )}
       <KVDisplay data={props.responses} intent="success" />
-      <p style={{ fontSize: "15px", marginTop: "10px" }}>Errors</p>
+      {props.errors.length !== 0 && (
+        <p style={{ fontSize: "15px", marginTop: "10px" }}>Errors</p>
+      )}
       <KVDisplay data={props.errors} intent="danger" />
     </div>
   );
