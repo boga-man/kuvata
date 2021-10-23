@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Components/Button";
 import { IconPlus } from "../Components/Icons";
 import TextField from "../Components/TextField";

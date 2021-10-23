@@ -78,7 +78,7 @@ export const requestReducer = (
         JSON.stringify(importedState)
       );
       return importedState;
-      
+
     default:
       return state;
   }

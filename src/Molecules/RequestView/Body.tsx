@@ -9,18 +9,22 @@ function Body(props: BodyProps) {
         width: "100%",
       }}
     >
-      <p style={{ fontSize: "15px", marginTop: "10px" }}>Body</p>
-      <pre
-        style={{
-          borderRadius: "4px",
-          background: "rgba(100,100,100,0.2)",
-          fontSize: "small",
-          padding: "10px 5px",
-          width: "100%",
-        }}
-      >
-        {props.body}
-      </pre>
+      {props.body.length !== 0 && (
+        <>
+          <p style={{ fontSize: "15px", marginTop: "10px" }}>Body</p>
+          <pre
+            style={{
+              borderRadius: "4px",
+              background: "rgba(100,100,100,0.2)",
+              fontSize: "small",
+              padding: "10px 5px",
+              width: "100%",
+            }}
+          >
+            {props.body}
+          </pre>
+        </>
+      )}
     </div>
   );
 }

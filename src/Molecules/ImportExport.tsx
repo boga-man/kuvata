@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Components/Button";
+import { IconClipboard } from "../Components/Icons";
 import TextArea from "../Components/TextArea";
 import { useSimaraToast } from "../Global/Context";
 import { IStore } from "../Store/store";
@@ -35,7 +36,7 @@ function ImportExport(props: IImportExport) {
           justifyContent: "space-between",
         }}
       >
-        <p style={{ fontSize: "small" }}>JSON</p>
+        <p style={{ fontSize: "small" }}>Kuvata JSON</p>
         <div>
           <Button
             appearance="secondary"
@@ -52,7 +53,7 @@ function ImportExport(props: IImportExport) {
                 });
                 toast({
                   title: `Imported Kuvata JSON`,
-                  message: `JSON is imported`,
+                  message: `JSON is imported.`,
                   intent: "success",
                 });
                 props.onCloseRequest();
@@ -71,11 +72,12 @@ function ImportExport(props: IImportExport) {
             appearance="secondary"
             style={{ marginLeft: "10px" }}
             cSize="small"
+            iconAfter={IconClipboard}
             onClick={() => {
               navigator.clipboard.writeText(json);
               toast({
-                title: `Copied!`,
-                message: `JSON copied to the clipboard`,
+                title: `Copied`,
+                message: `Kuvata JSON copied to the clipboard.`,
                 intent: "success",
               });
               props.onCloseRequest();
@@ -87,7 +89,7 @@ function ImportExport(props: IImportExport) {
       </div>
       <TextArea
         style={{ height: "90%", width: "100%", resize: "none" }}
-        placeholder="Add at least one endpoint to export into JSON"
+        placeholder="Add at least one request to export into JSON"
         value={json}
         onChange={(e) => {
           setJson(e.target.value);

@@ -32,10 +32,15 @@ function RequestViewIndex(props: RVIProps) {
         width: "50%",
         background: "none",
         padding: "0 20px",
-        height: "90vh",
+        height: "86vh",
         overflow: "auto",
       }}
     >
+      {props.request.length === 0 && (
+        <SRVContainer style={{ display: "flex", justifyContent: "center" }}>
+          No request saved.
+        </SRVContainer>
+      )}
       {props.request.map((item, index) => {
         return (
           <SRVContainer key={item.intro.method + item.intro.endpoint + index}>
@@ -52,6 +57,12 @@ function RequestViewIndex(props: RVIProps) {
                 isIconButton
                 iconAfter={IconPencil}
                 onClick={() => {
+                  toast({
+                    title: "Moved To Editing",
+                    message:
+                      "The request has been moved to left pane for editing. ",
+                    intent: "warning",
+                  });
                   props.onDeleteRequest(index);
                   props.onEditRequest(item);
                 }}
@@ -68,8 +79,8 @@ function RequestViewIndex(props: RVIProps) {
                   if (val) {
                     props.onDeleteRequest(index);
                     toast({
-                      title: `Request deleted`,
-                      message: `The endpoint '${item.intro.endpoint}' has been deleted`,
+                      title: `Request Deleted`,
+                      message: `The endpoint '${item.intro.endpoint}' has been deleted.`,
                       intent: "danger",
                     });
                   } else {
