@@ -1,7 +1,18 @@
+import { useSelector } from "react-redux";
 import Button from "../Components/Button";
 import TextArea from "../Components/TextArea";
+import { useSimaraToast } from "../Global/Context";
+import { IStore } from "../Store/store";
 
-function ImportExport() {
+interface IImportExport{
+  onCloseRequest: ()=>void;
+}
+
+function ImportExport(props: IImportExport) {
+  const requestStore = useSelector((state: IStore) => state.requestStore);
+  const textareaVal = JSON.stringify(requestStore);
+  const toast = useSimaraToast();
+
   return (
     <div
       style={{
@@ -26,13 +37,23 @@ function ImportExport() {
           appearance="secondary"
           style={{ marginLeft: "10px" }}
           cSize="small"
+          onClick={() => {
+            navigator.clipboard.writeText(textareaVal);
+            toast({
+              title: `Copied!`,
+              message: `JSON copied to the clipboard`,
+              intent: "success",
+            });
+            props.onCloseRequest();
+          }}
         >
           Copy
         </Button>
       </div>
       <TextArea
         style={{ height: "90%", width: "100%", resize: "none" }}
-        placeholder="Kuvata JSON here. "
+        placeholder="Add atleast one endpoint to export into JSON"
+        value={textareaVal === "[]" ? "" : textareaVal}
       />
     </div>
   );

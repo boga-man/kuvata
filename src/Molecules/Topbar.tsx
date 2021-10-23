@@ -89,7 +89,9 @@ function TopBar() {
             showModal((ps) => !ps);
           }}
         >
-          <ImportExport />
+          <ImportExport onCloseRequest={() => {
+            showModal((ps) => !ps);
+          }}/>
         </Modal>
       )}
     </STopBar>
