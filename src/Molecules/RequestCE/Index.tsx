@@ -116,6 +116,15 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         cSize="large"
         onClick={() => {
+          if (intro.endpoint.length === 0) {
+            toast({
+              title: "Request Not Saved",
+              message:
+                "Endpoint cannot be empty. Please enter endpoint to save.",
+              intent: "danger",
+            });
+            return;
+          }
           dispatch({
             type: "ADD_REQUEST",
             payload: { data: dispatchRequest, saveLocally },
