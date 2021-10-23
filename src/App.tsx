@@ -31,7 +31,6 @@ function App() {
           <RequestCEIndex
             request={formRequest}
             onSave={(request: IRequest) => {
-              // ("in save callback");
               setFormRequest(request);
             }}
           />
@@ -45,7 +44,6 @@ function App() {
             });
           }}
           onEditRequest={(request: IRequest) => {
-            // ("Request in callback", request);
             setFormRequest(request);
           }}
         />

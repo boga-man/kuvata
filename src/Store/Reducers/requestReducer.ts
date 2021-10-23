@@ -7,8 +7,12 @@ const initialState: IRequest[] =
   storedState !== null ? JSON.parse(storedState) : [];
 
 export type RequestAction = {
-  type: "ADD_REQUEST" | "DELETE_REQUEST" | "CLEAR_REQEUST_STORE";
-  payload: { data?: IRequest | number; saveLocally: boolean };
+  type:
+    | "ADD_REQUEST"
+    | "DELETE_REQUEST"
+    | "CLEAR_REQEUST_STORE"
+    | "IMPORT_REQUEST_STORE";
+  payload: { data?: IRequest | number | string; saveLocally: boolean };
 };
 
 const addRequestTo = (state: IRequest[], payload: IRequest) => {
@@ -61,6 +65,16 @@ export const requestReducer = (
       const newState: IRequest[] = [];
       localStorage.setItem(config.localStorageKey, JSON.stringify(newState));
       return newState;
+    case "IMPORT_REQUEST_STORE":
+      const importedStateJson: string = action.payload.data as string;
+      const importedState = JSON.parse(importedStateJson); 
+      if (action.payload.saveLocally) {
+        localStorage.setItem(
+          config.localStorageKey,
+          JSON.stringify(importedState)
+        );
+      }
+      return importedState;
     default:
       return state;
   }

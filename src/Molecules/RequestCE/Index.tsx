@@ -40,7 +40,6 @@ function RequestCEIndex(props: RCEIProps) {
   const [errors, setErrors] = useState<IKeyValue<string, string>[]>([]);
 
   useEffect(() => {
-    // ("In use effect: index", props.request);
     setIntro(props.request.intro);
     setBody(props.request.body);
     setParams(props.request.params);
@@ -64,7 +63,8 @@ function RequestCEIndex(props: RCEIProps) {
         data={intro}
         stateHandler={(intro: IRequestIntro) => {
           setIntro(intro);
-          props.onSave({ ...dispatchRequest, intro });
+          console.log('stateHandler', dispatchRequest);
+          // props.onSave({ ...dispatchRequest, intro });
         }}
       />
       <KVInput
@@ -72,7 +72,7 @@ function RequestCEIndex(props: RCEIProps) {
         title="Params"
         onChange={(data) => {
           setParams(data);
-          props.onSave({ ...dispatchRequest, params });
+          // props.onSave({ ...dispatchRequest, params });
         }}
       />
       <KVInput
@@ -81,7 +81,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="warning"
         onChange={(data) => {
           setHeaders(data);
-          props.onSave({ ...dispatchRequest, headers });
+          // props.onSave({ ...dispatchRequest, headers });
         }}
       />
       <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
@@ -95,7 +95,7 @@ function RequestCEIndex(props: RCEIProps) {
         }}
         onChange={(e) => {
           setBody((ps) => e.target.value);
-          props.onSave({ ...dispatchRequest, body });
+          // props.onSave({ ...dispatchRequest, body });
         }}
         placeholder="Describe body"
         style={{ resize: "vertical", width: "100%" }}
@@ -106,7 +106,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         onChange={(data) => {
           setResponses(data);
-          props.onSave({ ...dispatchRequest, responses });
+          // props.onSave({ ...dispatchRequest, responses });
         }}
       />
       <KVInput
@@ -115,7 +115,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="danger"
         onChange={(data) => {
           setErrors(data);
-          props.onSave({ ...dispatchRequest, errors });
+          // props.onSave({ ...dispatchRequest, errors });
         }}
       />
       <Button
