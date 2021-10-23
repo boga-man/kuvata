@@ -1,40 +1,50 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ToastManager from "./Components/ToastManager";
 import { GlobalStyle } from "./Global/Style";
 import { IRequest } from "./Interfaces/Request";
 import RequestCEIndex from "./Molecules/RequestCE/Index";
 import RequestViewIndex from "./Molecules/RequestView/Index";
 import TopBar from "./Molecules/Topbar";
+import { IStore } from "./Store/store";
+import { InitFormState } from "./Utils/Auxillary";
 
-const requestMock: IRequest = {
-  intro: {
-    method: "DELETE",
-    endpoint: "/auth/login",
-    description:
-      "HTTP defines a set of request methods to indicate the desired action to be performed for a given resource. Although they can also be nouns, these request methods are sometimes referred to as HTTP verbs. Each of them implements a different semantic",
-  },
-  body: "The body must contain the following: \n\t Hello",
-  params: [{ kei: "type", value: "admin" }],
-  headers: [
-    { kei: "Content-Type", value: "application/json" },
-    { kei: "Geography", value: "as-east-1" },
-  ],
-  responses: [
-    { kei: "200", value: "user already present and logged in" },
-    { kei: "201", value: "new user created and logged in" },
-  ],
-  errors: [{ kei: "404", value: "id token missing" }],
-};
 function App() {
+  const requestStore: IRequest[] = useSelector(
+    (state: IStore) => state.requestStore
+  );
+  const { viewOnly, saveLocally } = useSelector((state: IStore) => {
+    return { viewOnly: state.viewOnly, saveLocally: state.saveLocally };
+  });
+  const [formRequest, setFormRequest] = useState(InitFormState);
+
+  const dispatch = useDispatch();
   return (
     <ToastManager>
       <GlobalStyle />
       <TopBar />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <RequestCEIndex />
+        {viewOnly || (
+          <RequestCEIndex
+            request={formRequest}
+            onSave={() => {
+              setFormRequest((ps) => {
+                return { ...InitFormState };
+              });
+            }}
+          />
+        )}
         <RequestViewIndex
-          request={[requestMock, requestMock, requestMock]}
-          onDeleteRequest={() => {}}
-          onEditRequest={() => {}}
+          request={requestStore}
+          onDeleteRequest={(index: number) => {
+            dispatch({
+              type: "DELETE_REQUEST",
+              payload: { data: index, saveLocally },
+            });
+          }}
+          onEditRequest={(request: IRequest) => {
+            setFormRequest(request);
+          }}
         />
       </div>
     </ToastManager>

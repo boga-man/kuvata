@@ -1,11 +1,13 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Components/Button";
 import { IconChevronRight } from "../../Components/Icons";
 import TextArea from "../../Components/TextArea";
 import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
-import { IRequest } from "../../Interfaces/Request";
+import { IRequest, IRequestIntro } from "../../Interfaces/Request";
+import { IStore } from "../../Store/store";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
 const RCEContainer = styled.div`
@@ -16,27 +18,52 @@ const RCEContainer = styled.div`
   width: 50%;
 `;
 interface RCEIProps {
-  request?: IRequest;
+  request: IRequest;
   style?: CSSProperties;
+  onSave: () => void;
 }
+
 function RequestCEIndex(props: RCEIProps) {
-  const [body, setBody] = useState("");
   const toast = useSimaraToast();
-  const [params, setParams] = useState<IKeyValue<string, string>[]>(
-    props.request?.params || []
-  );
-  const [headers, setHeaders] = useState<IKeyValue<string, string>[]>(
-    props.request?.headers || []
-  );
-  const [responses, setResponses] = useState<IKeyValue<string, string>[]>(
-    props.request?.responses || []
-  );
-  const [errors, setErrors] = useState<IKeyValue<string, string>[]>(
-    props.request?.errors || []
-  );
+  const dispatch = useDispatch();
+  const saveLocally = useSelector((state: IStore) => state.saveLocally);
+
+  const [intro, setIntro] = useState<IRequestIntro>({
+    endpoint: "",
+    method: "GET",
+  });
+  const [body, setBody] = useState("");
+  const [params, setParams] = useState<IKeyValue<string, string>[]>([]);
+  const [headers, setHeaders] = useState<IKeyValue<string, string>[]>([]);
+  const [responses, setResponses] = useState<IKeyValue<string, string>[]>([]);
+  const [errors, setErrors] = useState<IKeyValue<string, string>[]>([]);
+
+  useEffect(() => {
+    setIntro(props.request.intro);
+    setBody(props.request.body);
+    setParams(props.request.params);
+    setHeaders(props.request.headers);
+    setResponses(props.request.responses);
+    setErrors(props.request.errors);
+  }, [props.request]);
+
+  const dispatchRequest = {
+    intro,
+    body,
+    params,
+    headers,
+    responses,
+    errors,
+  };
+
   return (
     <RCEContainer style={props.style}>
-      <RequestIntroInput />
+      <RequestIntroInput
+        data={intro}
+        stateHandler={(intro: IRequestIntro) => {
+          setIntro(intro);
+        }}
+      />
       <KVInput
         data={params}
         title="Params"
@@ -89,10 +116,14 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         cSize="large"
         onClick={() => {
+          dispatch({
+            type: "ADD_REQUEST",
+            payload: { data: dispatchRequest, saveLocally },
+          });
+          props.onSave();
           toast({
-            title: "Request Added",
-            message:
-              "Your request has been added, you can check in right column.",
+            title: `Endpoint added`,
+            message: `The endpoint '${dispatchRequest.intro.endpoint}' has been added, you can check in right column`,
             intent: "success",
           });
         }}

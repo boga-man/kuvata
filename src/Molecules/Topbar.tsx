@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../Components/Button";
 import Modal from "../Components/Modal";
 import Switch from "../Components/Switch";
 import { useSimaraToast } from "../Global/Context";
 import { SimaraDarkTheme } from "../Global/ThemeData";
+import { IStore } from "../Store/store";
 import ImportExport from "./ImportExport";
 const STopBar = styled.div`
   height: 10vh;
@@ -18,7 +20,11 @@ const STopBar = styled.div`
 `;
 function TopBar() {
   const [modal, showModal] = useState(false);
+  const store: IStore = useSelector((state: IStore) => state);
+
+  const dispatch = useDispatch();
   const toast = useSimaraToast();
+
   return (
     <STopBar>
       <div
@@ -31,9 +37,21 @@ function TopBar() {
         }}
       >
         Save To Local Storage
-        <Switch trackStyle={{ marginLeft: "10px", marginRight: "40px" }} />
+        <Switch
+          trackStyle={{ marginLeft: "10px", marginRight: "40px" }}
+          isOn={store.saveLocally}
+          onTap={() => {
+            dispatch({ type: "TOGGLE_SAVE_TO_STORAGE" });
+          }}
+        />
         View Mode
-        <Switch trackStyle={{ marginLeft: "10px" }} />
+        <Switch
+          trackStyle={{ marginLeft: "10px" }}
+          isOn={store.viewOnly}
+          onTap={() => {
+            dispatch({ type: "TOGGLE_VIEW_ONLY" });
+          }}
+        />
       </div>
       <div>
         <Button
@@ -52,7 +70,10 @@ function TopBar() {
               "All save data will be erased from current tab as well as local storage. Do you want to erase all stored data?"
             );
             if (val) {
-              // clear the redux repo here
+              dispatch({
+                type: "CLEAR_REQUEST_STORE",
+                payload: { saveLocally: store.saveLocally },
+              });
             } else {
               toast({ message: "Data not deleted. " });
             }
@@ -68,7 +89,11 @@ function TopBar() {
             showModal((ps) => !ps);
           }}
         >
-          <ImportExport />
+          <ImportExport
+            onCloseRequest={() => {
+              showModal((ps) => !ps);
+            }}
+          />
         </Modal>
       )}
     </STopBar>
