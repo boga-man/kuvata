@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Components/Button";
 import { IconChevronRight } from "../../Components/Icons";
@@ -7,6 +7,7 @@ import TextArea from "../../Components/TextArea";
 import { useSimaraToast } from "../../Global/Context";
 import { IKeyValue } from "../../Interfaces/Global";
 import { IRequest, IRequestIntro } from "../../Interfaces/Request";
+import { IStore } from "../../Store/store";
 import { initFormState } from "../../Utils/FormInit";
 import KVInput from "../KVInput";
 import RequestIntroInput from "./RequestIntro";
@@ -26,6 +27,7 @@ interface RCEIProps {
 function RequestCEIndex(props: RCEIProps) {
   const toast = useSimaraToast();
   const dispatch = useDispatch();
+  const saveLocally = useSelector((state: IStore) => state.saveLocally);
 
   const [intro, setIntro] = useState<IRequestIntro>({
     endpoint: "",
@@ -38,7 +40,7 @@ function RequestCEIndex(props: RCEIProps) {
   const [errors, setErrors] = useState<IKeyValue<string, string>[]>([]);
 
   useEffect(() => {
-    console.log("In use effect: index", props.request);
+    // ("In use effect: index", props.request);
     setIntro(props.request.intro);
     setBody(props.request.body);
     setParams(props.request.params);
@@ -62,7 +64,7 @@ function RequestCEIndex(props: RCEIProps) {
         data={intro}
         stateHandler={(intro: IRequestIntro) => {
           setIntro(intro);
-          props.onSave({...dispatchRequest, intro});
+          props.onSave({ ...dispatchRequest, intro });
         }}
       />
       <KVInput
@@ -70,7 +72,7 @@ function RequestCEIndex(props: RCEIProps) {
         title="Params"
         onChange={(data) => {
           setParams(data);
-          props.onSave({...dispatchRequest, params})
+          props.onSave({ ...dispatchRequest, params });
         }}
       />
       <KVInput
@@ -79,7 +81,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="warning"
         onChange={(data) => {
           setHeaders(data);
-          props.onSave({...dispatchRequest, headers});
+          props.onSave({ ...dispatchRequest, headers });
         }}
       />
       <p style={{ margin: "5px 0", marginTop: "10px" }}>Body</p>
@@ -93,7 +95,7 @@ function RequestCEIndex(props: RCEIProps) {
         }}
         onChange={(e) => {
           setBody((ps) => e.target.value);
-          props.onSave({...dispatchRequest, body})
+          props.onSave({ ...dispatchRequest, body });
         }}
         placeholder="Describe body"
         style={{ resize: "vertical", width: "100%" }}
@@ -104,7 +106,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         onChange={(data) => {
           setResponses(data);
-          props.onSave({...dispatchRequest, responses});
+          props.onSave({ ...dispatchRequest, responses });
         }}
       />
       <KVInput
@@ -113,7 +115,7 @@ function RequestCEIndex(props: RCEIProps) {
         intent="danger"
         onChange={(data) => {
           setErrors(data);
-          props.onSave({...dispatchRequest, errors});
+          props.onSave({ ...dispatchRequest, errors });
         }}
       />
       <Button
@@ -122,12 +124,14 @@ function RequestCEIndex(props: RCEIProps) {
         intent="success"
         cSize="large"
         onClick={() => {
-          dispatch({ type: "ADD_REQUEST", payload: dispatchRequest });
+          dispatch({
+            type: "ADD_REQUEST",
+            payload: { data: dispatchRequest, saveLocally },
+          });
           props.onSave(initFormState);
           toast({
-            title: "Request Added",
-            message:
-              "Your request has been added, you can check in right column.",
+            title: `Endpoint added`,
+            message: `The endpoint '${dispatchRequest.intro.endpoint}' has been added, you can check in right column`,
             intent: "success",
           });
         }}

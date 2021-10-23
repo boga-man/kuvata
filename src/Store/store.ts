@@ -6,13 +6,13 @@ import { saveReducer, TSave } from "./Reducers/saveReducer";
 import { TViewOnly, viewOnlyReducer } from "./Reducers/viewOnlyReducer";
 
 export interface IStore{
-    saveToStorage: TSave,
+    saveLocally: TSave,
     viewOnly: TViewOnly,
     requestStore: IRequest[],
 }
 
 const allReducers = combineReducers({
-    saveToStorage: saveReducer,
+    saveLocally: saveReducer,
     viewOnly: viewOnlyReducer,
     requestStore: requestReducer,
 });

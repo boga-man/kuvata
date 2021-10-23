@@ -20,8 +20,7 @@ const STopBar = styled.div`
 `;
 function TopBar() {
   const [modal, showModal] = useState(false);
-  const viewOnly = useSelector((state: IStore) => state.viewOnly);
-  const saveToStorage = useSelector((state: IStore) => state.saveToStorage);
+  const store = useSelector((state: IStore) => state);
 
   const dispatch = useDispatch();
   const toast = useSimaraToast();
@@ -40,7 +39,7 @@ function TopBar() {
         Save To Local Storage
         <Switch
           trackStyle={{ marginLeft: "10px", marginRight: "40px" }}
-          isOn={saveToStorage}
+          isOn={store.saveLocally}
           onTap={() => {
             dispatch({ type: "TOGGLE_SAVE_TO_STORAGE" });
           }}
@@ -48,7 +47,7 @@ function TopBar() {
         View Mode
         <Switch
           trackStyle={{ marginLeft: "10px" }}
-          isOn={viewOnly}
+          isOn={store.viewOnly}
           onTap={() => {
             dispatch({ type: "TOGGLE_VIEW_ONLY" });
           }}

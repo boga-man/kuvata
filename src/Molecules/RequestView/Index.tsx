@@ -68,7 +68,8 @@ function RequestViewIndex(props: RVIProps) {
                   if (val) {
                     props.onDeleteRequest(index);
                     toast({
-                      message: "Request Deleted",
+                      title: `Request deleted`,
+                      message: `The endpoint '${item.intro.endpoint}' has been deleted`,
                       intent: "danger",
                     });
                   } else {

@@ -13,11 +13,13 @@ function App() {
   const requestStore: IRequest[] = useSelector(
     (state: IStore) => state.requestStore
   );
+  const { viewOnly, saveLocally } = useSelector((state: IStore) => {
+    return { viewOnly: state.viewOnly, saveLocally: state.saveLocally };
+  });
   const [formRequest, setFormRequest] = useState(initFormState);
 
-  useEffect(()=>{
-    console.log("form request changed: App", formRequest);
-  },[formRequest]);
+  useEffect(() => {
+  }, [formRequest]);
 
   const dispatch = useDispatch();
   return (
@@ -25,20 +27,25 @@ function App() {
       <GlobalStyle />
       <TopBar />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <RequestCEIndex
-          request={formRequest}
-          onSave={(request: IRequest) => {
-            console.log("in save callback");
-            setFormRequest(request);
-          }}
-        />
+        {viewOnly || (
+          <RequestCEIndex
+            request={formRequest}
+            onSave={(request: IRequest) => {
+              // ("in save callback");
+              setFormRequest(request);
+            }}
+          />
+        )}
         <RequestViewIndex
           request={requestStore}
           onDeleteRequest={(index: number) => {
-            dispatch({ type: "DELETE_REQUEST", payload: index });
+            dispatch({
+              type: "DELETE_REQUEST",
+              payload: { data: index, saveLocally },
+            });
           }}
           onEditRequest={(request: IRequest) => {
-            console.log("Request in callback", request);
+            // ("Request in callback", request);
             setFormRequest(request);
           }}
         />
